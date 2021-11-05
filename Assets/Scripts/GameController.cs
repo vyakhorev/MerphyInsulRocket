@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +11,7 @@ public class GameController : MonoBehaviour
   [SerializeField] public Transform physics2DGroup;
   [SerializeField] public Transform rocketModelPrefab;
   [SerializeField] public RocketFlyModel rocketFlyModel;
+  [SerializeField] public CinemachineVirtualCamera cmVmCam;
 
   public UnityEvent rocketModelUpdated;
   public UnityEvent missionBeforeAbandoned;
@@ -36,6 +38,7 @@ public class GameController : MonoBehaviour
                                  rocketSpawnPlace.transform.position, 
                                  Quaternion.identity, 
                                  physics2DGroup.transform);
+    cmVmCam.Follow = rocketInstance.transform;
     rocketFlyModel = rocketInstance.GetComponent<RocketFlyModel>();
     rocketFlyModel.Initialize();
     rocketModelUpdated.Invoke();
@@ -44,12 +47,18 @@ public class GameController : MonoBehaviour
   public void CompileAndStartRocket()
   {
     rocketFlyModel.StartFly();
+    CinemachineBasicMultiChannelPerlin noise = cmVmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    noise.m_AmplitudeGain = 1f;
+    noise.m_FrequencyGain = 1f;
   }
 
   public void AbandonMission()
   {
     missionBeforeAbandoned.Invoke();
     Destroy(rocketFlyModel.transform.gameObject);
+    CinemachineBasicMultiChannelPerlin noise = cmVmCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+    noise.m_AmplitudeGain = 0f;
+    noise.m_FrequencyGain = 0f;
     SpawnRocket();
     missionAfterAbandoned.Invoke();
   }
