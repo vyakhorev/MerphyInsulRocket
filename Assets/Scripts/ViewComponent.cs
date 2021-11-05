@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ViewComponent : MonoBehaviour
@@ -11,6 +12,14 @@ public class ViewComponent : MonoBehaviour
 
   private void OnDestroy()
   {
-    Destroy(spawnedInstace.gameObject);
+    if (spawnedInstace != null)
+    {
+      if (!spawnedInstace.IsDestroyed())
+      {
+        Destroy(spawnedInstace.gameObject);        
+      }
+    }
+    
+    
   }
 }
