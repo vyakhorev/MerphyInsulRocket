@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Engine : MonoBehaviour
+public class Engine : MonoBehaviour, IRocketBlock
 {
   [SerializeField]
   public float engineForce;
