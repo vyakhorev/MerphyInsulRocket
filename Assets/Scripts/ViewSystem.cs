@@ -41,6 +41,7 @@ public class ViewSystem : MonoBehaviour
 
   private void missionEndReset()
   {
+    UpdateViews();
     running = true;
   }
 
@@ -60,8 +61,13 @@ public class ViewSystem : MonoBehaviour
                                             p, 
                                             Quaternion.identity,
                                             transform);
-        // Turn off collider, we don't need it, everything works in 2D here
-        //view_i.spawnedInstace.GetComponent<Collider>().enabled = false;
+        if (view_i.scaleToModel)
+        {
+          // Ground
+          view_i.spawnedInstace.localScale = view_i.transform.localScale;
+        }
+        
+        
         spawnedViews.Add(view_i);
       }
     }

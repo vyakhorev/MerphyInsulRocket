@@ -79,8 +79,7 @@ public class Attachable : MonoBehaviour
   {
     if (canBeSnapped)
     {
-      Debug.Log("Snapped!");
-      
+
       GameController.instance.rocketFlyModel.AddNewBlock(snappedBlockGridPosition,
                                                          transform.GetComponent<Attachable>().spawnableModel);
       blockAttached.Invoke();
