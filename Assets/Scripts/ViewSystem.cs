@@ -10,15 +10,19 @@ public class ViewSystem : MonoBehaviour
   
   private List<ViewComponent> spawnedViews;
 
+  private bool running = true;
+  
   public void Start()
   {
     spawnedViews = new List<ViewComponent>();
-    SpawnView();
-    GameController.instance.rocketModelUpdated.AddListener(SpawnView);
+    GameController.instance.rocketModelUpdated.AddListener(UpdateViews);
+    GameController.instance.missionBeforeAbandoned.AddListener(missionStartReset);
+    GameController.instance.missionAfterAbandoned.AddListener(missionEndReset);
   }
 
   private void Update()
   {
+    if (!running) return;
     foreach (ViewComponent view_i in spawnedViews)
     {
       Vector3 p = view_i.transform.position;
@@ -27,8 +31,25 @@ public class ViewSystem : MonoBehaviour
       view_i.spawnedInstace.rotation = r;
     }
   }
+
+  private void missionStartReset()
+  {
+    // The views are destroyed in ViewComponent.onDestroy
+    running = false;
+    spawnedViews = new List<ViewComponent>();
+  }
+
+  private void missionEndReset()
+  {
+    running = true;
+  }
+
+  private void UpdateViews()
+  {
+    SpawnViews();
+  }
   
-  private void SpawnView()
+  private void SpawnViews()
   {
     foreach (ViewComponent view_i in physics2DModel.GetComponentsInChildren<ViewComponent>())
     {

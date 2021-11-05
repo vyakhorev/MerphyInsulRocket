@@ -71,6 +71,15 @@ public class Attachable : MonoBehaviour
 
   }
 
+  private void OnMouseUp()
+  {
+    if (canBeSnapped)
+    {
+      Debug.Log("Snapped!");
+      GameController.instance.rocketFlyModel.AddNewBlock(transform);
+    }
+  }
+
   private Vector3? TrySnapToShip(Vector3 origin)
   {
     // Cast a circle on physics 2D layer
@@ -81,15 +90,10 @@ public class Attachable : MonoBehaviour
     if (rocketModel != null)
     {
       Vector3 snapPos = rocketModel.QuerySnappingPosition(origin);
-      //var block_elem = rocketModel.transform.position;
       return snapPos;
     }
     
     return null;
   }
   
-  private void OnTriggerEnter(Collider other)
-  {
-    
-  }
 }

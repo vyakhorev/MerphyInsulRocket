@@ -22,12 +22,6 @@ public class RocketFlyModel : MonoBehaviour
 
   private Building2DTag[,] rocketGrid;
 
-  public void Start()
-  {
-    InitBuilding();
-    RecalcAttachablePositions();
-  }
-
   void FixedUpdate()
   {
     if (doFly && isSetup)
@@ -36,6 +30,15 @@ public class RocketFlyModel : MonoBehaviour
     }
   }
 
+  public void Initialize()
+  {
+    // Called at game start / abandon
+    isSetup = false;
+    doFly = false;
+    InitBuilding();
+    Setup();
+  }
+  
   public void Setup()
   {
     thisRigidBody = GetComponent<Rigidbody2D>();
