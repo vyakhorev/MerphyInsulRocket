@@ -319,7 +319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.0871747, y: 0.00955414, z: 0.0015278069, w: 0.9961461}
-  m_LocalPosition: {x: -2.47301, y: 1.1864827, z: -8.766186}
+  m_LocalPosition: {x: -2.530913, y: 1.7074275, z: -11.720041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -929,7 +929,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819884255}
   m_LocalRotation: {x: 0.0871747, y: 0.00955414, z: 0.0015278069, w: 0.9961461}
-  m_LocalPosition: {x: -2.47301, y: 1.1864827, z: -8.766186}
+  m_LocalPosition: {x: -2.530913, y: 1.7074275, z: -11.720041}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1713,16 +1713,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 2.1, z: 1.08}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
+  m_LookaheadTime: 0.195
+  m_LookaheadSmoothing: 2.5
   m_LookaheadIgnoreY: 0
   m_XDamping: 0
   m_YDamping: 0
-  m_ZDamping: 1
+  m_ZDamping: 0
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 10
+  m_CameraDistance: 13
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
