@@ -36,18 +36,42 @@ public class RocketFlyModel : MonoBehaviour
     isSetup = false;
     doFly = false;
     InitBuilding();
-    Setup();
+    CompileBeforeFly();
   }
   
-  public void Setup()
+  private void InitBuilding()
+  {
+    rocketGrid = new Building2DTag[maxSize[0], maxSize[1]];
+    Transform startBlock = Instantiate(startModelBlockPrefab, transform.position, Quaternion.identity, transform);
+    Building2DTag bldBlock = startBlock.GetComponent<Building2DTag>();
+    rocketGrid[zeroIndex[0], zeroIndex[1]] = bldBlock;
+    GameController.instance.rocketModelUpdated.Invoke();
+  }
+  
+  public void AddNewBlock(Transform newAttachableBlock)
+  {
+    
+  }
+
+  public void CompileBeforeFly()
   {
     thisRigidBody = GetComponent<Rigidbody2D>();
+    //thisRigidBody.simulated = false; 
+    thisRigidBody.Sleep(); // the prefab is "startAsleep", so this is a useless line
     SetupEngines();
     RegisterAllBlocks();
     RecalcAttachablePositions();
     isSetup = true;
   }
-  
+
+  public void StartFly()
+  {
+    CompileBeforeFly();
+    doFly = true;
+    thisRigidBody.WakeUp();
+    //thisRigidBody.simulated = true;
+  }
+
   private void SetupEngines()
   {
     engines = new List<Engine>();
@@ -65,19 +89,7 @@ public class RocketFlyModel : MonoBehaviour
     }
   }
 
-  public void InitBuilding()
-  {
-    rocketGrid = new Building2DTag[maxSize[0], maxSize[1]];
-    Transform startBlock = Instantiate(startModelBlockPrefab, transform.position, Quaternion.identity, transform);
-    Building2DTag bldBlock = startBlock.GetComponent<Building2DTag>();
-    rocketGrid[zeroIndex[0], zeroIndex[1]] = bldBlock;
-    GameController.instance.rocketModelUpdated.Invoke();
-  }
-  
-  public void AddNewBlock(Transform newAttachableBlock)
-  {
-    
-  }
+
 
   private void RegisterAllBlocks()
   {

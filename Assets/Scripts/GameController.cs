@@ -43,8 +43,7 @@ public class GameController : MonoBehaviour
   
   public void CompileAndStartRocket()
   {
-    rocketFlyModel.Setup();
-    rocketFlyModel.doFly = true;
+    rocketFlyModel.StartFly();
   }
 
   public void AbandonMission()
