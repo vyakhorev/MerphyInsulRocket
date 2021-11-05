@@ -21,6 +21,7 @@ public class Attachable : MonoBehaviour
 
   public Vector3 intendedBlockPosition;
   public Vector3 snappedBlockPosition;
+  public Vector2Int snappedBlockGridPosition;
   public bool canBeSnapped;
   
   private void Awake()
@@ -48,11 +49,14 @@ public class Attachable : MonoBehaviour
   {
     intendedBlockPosition = GetMouseWorldPos() + mOffset;
     transform.position = intendedBlockPosition;
-    Vector3? snappedPos = TrySnapToShip(intendedBlockPosition);
-    if (snappedPos.HasValue)
+    (Vector3, Vector2Int)? ans = TrySnapToShip(intendedBlockPosition);
+    if (ans.HasValue)
     {
+      var snappedPos = ans.Value.Item1;
+      var snappedGridPos = ans.Value.Item2;
       canBeSnapped = true;
-      snappedBlockPosition = snappedPos.Value;
+      snappedBlockPosition = snappedPos;
+      snappedBlockGridPosition = snappedGridPos;
     }
     else
     {
@@ -76,11 +80,19 @@ public class Attachable : MonoBehaviour
     if (canBeSnapped)
     {
       Debug.Log("Snapped!");
-      GameController.instance.rocketFlyModel.AddNewBlock(transform);
+      
+      GameController.instance.rocketFlyModel.AddNewBlock(snappedBlockGridPosition,
+                                                         transform.GetComponent<Attachable>().spawnableModel);
+      blockAttached.Invoke();
+      blockAttached.RemoveAllListeners();
+      blockDisposed.RemoveAllListeners();
+      blockSnapped.RemoveAllListeners();
+      Destroy(blockView.gameObject);
+      Destroy(this.gameObject);
     }
   }
 
-  private Vector3? TrySnapToShip(Vector3 origin)
+  private (Vector3, Vector2Int)? TrySnapToShip(Vector3 origin)
   {
     // Cast a circle on physics 2D layer
     Collider2D other = Physics2D.OverlapCircle(origin, 0.5f);
@@ -89,8 +101,7 @@ public class Attachable : MonoBehaviour
     RocketFlyModel rocketModel = other.transform.GetComponent<RocketFlyModel>();
     if (rocketModel != null)
     {
-      Vector3 snapPos = rocketModel.QuerySnappingPosition(origin);
-      return snapPos;
+      return rocketModel.QuerySnappingPosition(origin);
     }
     
     return null;

@@ -29,10 +29,17 @@ public class ItemSpawner : MonoBehaviour
     
     att.blockView = Instantiate(vw.prefab, p, Quaternion.identity);
     att.blockDisposed.AddListener(OnBlockDisposed);
+    att.blockAttached.AddListener(OnBlockAttached);
 
   }
 
   public void OnBlockDisposed()
+  {
+    SpawnNewItem();
+    
+  }
+
+  public void OnBlockAttached()
   {
     SpawnNewItem();
   }

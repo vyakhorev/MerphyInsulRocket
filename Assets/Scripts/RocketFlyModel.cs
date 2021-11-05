@@ -48,15 +48,23 @@ public class RocketFlyModel : MonoBehaviour
     GameController.instance.rocketModelUpdated.Invoke();
   }
   
-  public void AddNewBlock(Transform newAttachableBlock)
+  public void AddNewBlock(Vector2Int blockGridPosition, Transform spawnableModel)
   {
+    // Spawn a model and recalculate ship
+    float x = (blockGridPosition.x - zeroIndex.x) * blockWidth; 
+    float y = (blockGridPosition.y - zeroIndex.y) * blockWidth;
+    Vector3 availPos = transform.position + new Vector3(x, y, 0);
     
+    Transform newBlock = Instantiate(spawnableModel, availPos, Quaternion.identity, transform);
+    var bldBlock =  newBlock.GetComponent<Building2DTag>();
+    rocketGrid[blockGridPosition[0], blockGridPosition[1]] = bldBlock;
+    RecalcAttachablePositions();
+    GameController.instance.rocketModelUpdated.Invoke();
   }
 
   public void CompileBeforeFly()
   {
     thisRigidBody = GetComponent<Rigidbody2D>();
-    //thisRigidBody.simulated = false; 
     thisRigidBody.Sleep(); // the prefab is "startAsleep", so this is a useless line
     SetupEngines();
     RegisterAllBlocks();
@@ -69,7 +77,6 @@ public class RocketFlyModel : MonoBehaviour
     CompileBeforeFly();
     doFly = true;
     thisRigidBody.WakeUp();
-    //thisRigidBody.simulated = true;
   }
 
   private void SetupEngines()
@@ -186,7 +193,7 @@ public class RocketFlyModel : MonoBehaviour
     
   }
   
-  public Vector3 QuerySnappingPosition(Vector3 original)
+  public (Vector3, Vector2Int) QuerySnappingPosition(Vector3 original)
   {
     // Loop over all available positions
     float bestDistance = 999999f;
@@ -206,7 +213,7 @@ public class RocketFlyModel : MonoBehaviour
       idx += 1;
     }
     
-    return bestPosition;
+    return (bestPosition, freeGridCells[bestIdx]);
 
   }
   

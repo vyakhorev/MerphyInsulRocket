@@ -56,7 +56,10 @@ public class ViewSystem : MonoBehaviour
       if (view_i.spawnedInstace == null)
       {
         Vector3 p = view_i.transform.position;
-        view_i.spawnedInstace = Instantiate(view_i.prefab, p, Quaternion.identity);
+        view_i.spawnedInstace = Instantiate(view_i.prefab, 
+                                            p, 
+                                            Quaternion.identity,
+                                            transform);
         // Turn off collider, we don't need it, everything works in 2D here
         //view_i.spawnedInstace.GetComponent<Collider>().enabled = false;
         spawnedViews.Add(view_i);
