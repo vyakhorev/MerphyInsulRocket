@@ -9,14 +9,20 @@ public class Attachable : MonoBehaviour
 
   [SerializeField] public float spawnProb;
   [SerializeField] public Transform spawnableModel;
-
+  
   public UnityEvent blockDisposed;
   public UnityEvent blockAttached;
   public UnityEvent blockSnapped;
+
+  public Transform blockView;
   
   private Vector3 mOffset;
   private float mZCoord;
 
+  public Vector3 intendedBlockPosition;
+  public Vector3 snappedBlockPosition;
+  public bool canBeSnapped;
+  
   private void Awake()
   {
     blockDisposed = new UnityEvent();
@@ -40,7 +46,46 @@ public class Attachable : MonoBehaviour
 
   private void OnMouseDrag()
   {
-    transform.position = GetMouseWorldPos() + mOffset;
+    intendedBlockPosition = GetMouseWorldPos() + mOffset;
+    transform.position = intendedBlockPosition;
+    Vector3? snappedPos = TrySnapToShip(intendedBlockPosition);
+    if (snappedPos.HasValue)
+    {
+      canBeSnapped = true;
+      snappedBlockPosition = snappedPos.Value;
+    }
+    else
+    {
+      canBeSnapped = false;
+    }
+
+    //var view = GetComponentInChildren<ViewComponent>();
+    if (canBeSnapped)
+    {
+      blockView.transform.position = snappedBlockPosition;
+    }
+    else
+    {
+      blockView.transform.position = intendedBlockPosition;
+    }
+
+  }
+
+  private Vector3? TrySnapToShip(Vector3 origin)
+  {
+    // Cast a circle on physics 2D layer
+    Collider2D other = Physics2D.OverlapCircle(origin, 0.5f);
+    if (other == null) return null;
+    
+    RocketFlyModel rocketModel = other.transform.GetComponent<RocketFlyModel>();
+    if (rocketModel != null)
+    {
+      Vector3 snapPos = rocketModel.QuerySnappingPosition(origin);
+      //var block_elem = rocketModel.transform.position;
+      return snapPos;
+    }
+    
+    return null;
   }
   
   private void OnTriggerEnter(Collider other)

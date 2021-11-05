@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7161710805808838551}
   - component: {fileID: 7161710805808838550}
   - component: {fileID: 631028584896120742}
+  - component: {fileID: 2110598657085294347}
   m_Layer: 6
   m_Name: engine
   m_TagString: Untagged
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44575de0fe9dd0d4e90b55c5a906abba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engineForce: 5
+  engineForce: 10
   colliderOffset: {x: 0, y: 0}
 --- !u!114 &631028584896120742
 MonoBehaviour:
@@ -140,3 +141,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2557471836149541356, guid: bf300be3cfe31b1409e1b702335c040f, type: 3}
+  scaleToModel: 0
+  spawnedInstace: {fileID: 0}
+--- !u!114 &2110598657085294347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7161710805808838546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4ed963b82c0fb46b1146c5093ee9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

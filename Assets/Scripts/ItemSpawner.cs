@@ -23,11 +23,11 @@ public class ItemSpawner : MonoBehaviour
     Transform prefab = ChooseItems();
     Transform new_attachment = Instantiate(prefab, p, Quaternion.identity);
    
-    // View system won't work here since it's detached, so we have to spawn view
+    // Don't want to use view system here
     Attachable att = new_attachment.GetComponent<Attachable>();
     ViewComponent vw = att.spawnableModel.GetComponent<ViewComponent>();
     
-    Transform mesh_obj = Instantiate(vw.prefab, p, Quaternion.identity, new_attachment);
+    att.blockView = Instantiate(vw.prefab, p, Quaternion.identity);
     att.blockDisposed.AddListener(OnBlockDisposed);
 
   }

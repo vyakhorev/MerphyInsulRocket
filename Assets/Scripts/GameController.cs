@@ -2,10 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameController : MonoBehaviour
 {
   [SerializeField] public RocketFlyModel rocketFlyModel;
+  
+  public UnityEvent rocketModelUpdated;
+  
+  public static GameController instance;
+
+  public void Awake()
+  {
+    if (instance == null) instance = this;
+    rocketModelUpdated = new UnityEvent();
+  }
 
   public void CompileAndStartRocket()
   {

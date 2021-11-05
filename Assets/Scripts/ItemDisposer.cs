@@ -9,8 +9,13 @@ public class ItemDisposer : MonoBehaviour
   private void OnTriggerEnter(Collider other)
   {
     var attch = other.transform.GetComponent<Attachable>();
-    attch.blockDisposed.Invoke();
-    Destroy(other.transform.gameObject);
+    if (attch != null)
+    {
+      attch.blockDisposed.Invoke();
+      Transform viewBlock = attch.blockView;
+      Destroy(other.transform.gameObject);
+      Destroy(viewBlock.transform.gameObject);
+    }
   }
   
   private void OnTriggerStay(Collider other)

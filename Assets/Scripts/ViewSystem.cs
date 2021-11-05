@@ -10,10 +10,11 @@ public class ViewSystem : MonoBehaviour
   
   private List<ViewComponent> spawnedViews;
 
-  public void Awake()
+  public void Start()
   {
     spawnedViews = new List<ViewComponent>();
     SpawnView();
+    GameController.instance.rocketModelUpdated.AddListener(SpawnView);
   }
 
   private void Update()
