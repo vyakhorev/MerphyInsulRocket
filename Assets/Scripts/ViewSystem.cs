@@ -10,7 +10,8 @@ public class ViewSystem : MonoBehaviour
   
   private List<ViewComponent> spawnedViews;
 
-  private bool running = true;
+  private bool runningViewSynch = true;
+  private bool applyAnimations = false;
   
   public void Start()
   {
@@ -18,31 +19,47 @@ public class ViewSystem : MonoBehaviour
     GameController.instance.rocketModelUpdated.AddListener(UpdateViews);
     GameController.instance.missionBeforeAbandoned.AddListener(missionStartReset);
     GameController.instance.missionAfterAbandoned.AddListener(missionEndReset);
+    GameController.instance.missionAfterAbandoned.AddListener(OnRocketStop);
+    GameController.instance.rocketStart.AddListener(OnRocketStart);
   }
 
   private void Update()
   {
-    if (!running) return;
+    if (!runningViewSynch) return;
     foreach (ViewComponent view_i in spawnedViews)
     {
       Vector3 p = view_i.transform.position;
       Quaternion r = view_i.transform.rotation;
       view_i.spawnedInstace.position = p;
       view_i.spawnedInstace.rotation = r;
+      if (view_i.hasAnimations && applyAnimations)
+      {
+        view_i.RunUpdateAnimation();
+      }
     }
+  }
+  
+  private void OnRocketStart()
+  {
+    applyAnimations = true;
+  }
+  
+  private void OnRocketStop()
+  {
+    applyAnimations = false;
   }
 
   private void missionStartReset()
   {
     // The views are destroyed in ViewComponent.onDestroy
-    running = false;
+    runningViewSynch = false;
     spawnedViews = new List<ViewComponent>();
   }
 
   private void missionEndReset()
   {
     UpdateViews();
-    running = true;
+    runningViewSynch = true;
   }
 
   private void UpdateViews()

@@ -8,8 +8,11 @@ public class ViewComponent : MonoBehaviour
 {
   [SerializeField] public Transform prefab;
   [SerializeField] public bool scaleToModel = false;
+  [SerializeField] public bool hasAnimations = false;
+  [SerializeField] public bool animationIsRotation = false;
+  [SerializeField] public float rotationSpeedRadSec = 0.5f;
   public Transform spawnedInstace;
-
+  
   private void OnDestroy()
   {
     if (spawnedInstace != null)
@@ -19,7 +22,14 @@ public class ViewComponent : MonoBehaviour
         Destroy(spawnedInstace.gameObject);        
       }
     }
-    
-    
   }
+
+  public void RunUpdateAnimation()
+  {
+    if (hasAnimations && animationIsRotation)
+    {
+      transform.Rotate(0, rotationSpeedRadSec * Time.deltaTime * 360f, 0, Space.Self);
+    }
+  }
+  
 }

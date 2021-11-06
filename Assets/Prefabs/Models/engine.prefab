@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ecda3fa3f8c768444ae558cd7181a3e7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.19463634, a: 0.13725491}
+  m_Color: {r: 1, g: 0, b: 0.19463634, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -142,6 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2557471836149541356, guid: bf300be3cfe31b1409e1b702335c040f, type: 3}
   scaleToModel: 0
+  hasAnimations: 1
+  animationIsRotation: 1
+  rotationSpeedRadSec: 0.5
   spawnedInstace: {fileID: 0}
 --- !u!114 &2110598657085294347
 MonoBehaviour:
