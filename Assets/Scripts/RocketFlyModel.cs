@@ -60,6 +60,7 @@ public class RocketFlyModel : MonoBehaviour
     rocketGrid[blockGridPosition[0], blockGridPosition[1]] = bldBlock;
     RecalcAttachablePositions();
     GameController.instance.rocketModelUpdated.Invoke();
+    GameController.instance.someBlockAdded.Invoke();
   }
 
   public void CompileBeforeFly()

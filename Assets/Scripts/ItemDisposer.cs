@@ -11,6 +11,7 @@ public class ItemDisposer : MonoBehaviour
     var attch = other.transform.GetComponent<Attachable>();
     if (attch != null)
     {
+      GameController.instance.someBlockDestroyed.Invoke();
       attch.blockDisposed.Invoke();
       Transform viewBlock = attch.blockView;
       Destroy(other.transform.gameObject);
