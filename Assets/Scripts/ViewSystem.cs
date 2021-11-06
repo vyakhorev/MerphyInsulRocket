@@ -80,8 +80,10 @@ public class ViewSystem : MonoBehaviour
                                             transform);
         if (view_i.scaleToModel)
         {
-          // Ground
-          view_i.spawnedInstace.localScale = view_i.transform.localScale;
+          // Ground, need to scale x only
+          view_i.spawnedInstace.localScale = new Vector3(view_i.transform.localScale.x,
+                                                         view_i.spawnedInstace.localScale.y,
+                                                         view_i.spawnedInstace.localScale.z);
         }
         
         

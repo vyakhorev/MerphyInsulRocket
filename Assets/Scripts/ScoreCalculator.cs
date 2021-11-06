@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class ScoreCalculator : MonoBehaviour
 {
+
+  [SerializeField] public Transform maxHeight;
+  [SerializeField] public Transform maxLeft;
+  [SerializeField] public Transform maxRight;
+  
   
   public int totalFlyScore;
   public int totalBuildCost;
@@ -74,7 +79,28 @@ public class ScoreCalculator : MonoBehaviour
       // TODO: account for flips and build cost
       totalFlyScore = currentHeight;
 
+      bool doCancelFligh = checkFlyIsOver();
+      
+
     }
+  }
+
+  private bool checkFlyIsOver()
+  {
+    if (flyingThing.position.x > maxRight.position.x)
+    {
+      return true;
+    }
+    if (flyingThing.position.x < maxLeft.position.x)
+    {
+      return true;
+    }
+    if (flyingThing.position.y > maxHeight.position.y)
+    {
+      return true;
+    }
+
+    return false;
   }
   
   
