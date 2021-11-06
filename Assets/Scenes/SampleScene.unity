@@ -559,7 +559,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0.0871747, y: 0.00955414, z: 0.0015278069, w: 0.9961461}
-  m_LocalPosition: {x: -2.530913, y: 1.7074275, z: -11.720041}
+  m_LocalPosition: {x: -2.453709, y: 1.0128343, z: -7.7815676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1238,7 +1238,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819884255}
   m_LocalRotation: {x: 0.0871747, y: 0.00955414, z: 0.0015278069, w: 0.9961461}
-  m_LocalPosition: {x: -2.530913, y: 1.7074275, z: -11.720041}
+  m_LocalPosition: {x: -2.453709, y: 1.0128343, z: -7.7815676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1900,6 +1900,9 @@ MonoBehaviour:
   someBlockDestroyed:
     m_PersistentCalls:
       m_Calls: []
+  rocketStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1245579380
 Transform:
   m_ObjectHideFlags: 0
@@ -1930,7 +1933,6 @@ MonoBehaviour:
   totalFlyScore: 0
   totalBuildCost: 0
   flyingThing: {fileID: 0}
-  isFlying: 0
   flips: 0
   currentHeight: 0
 --- !u!1 &1288131434
@@ -2131,8 +2133,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508791506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.78, z: 0}
-  m_LocalScale: {x: 216.53499, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -3.86, z: 0}
+  m_LocalScale: {x: 300, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1954597798}
@@ -2550,7 +2552,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 13
+  m_CameraDistance: 9
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0

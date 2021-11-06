@@ -71,6 +71,9 @@ public class ScoreCalculator : MonoBehaviour
       Vector3 p = flyingThing.position;
       currentHeight = (int)Math.Round(p.y - startPosition.y);
 
+      // TODO: account for flips and build cost
+      totalFlyScore = currentHeight;
+
     }
   }
   
