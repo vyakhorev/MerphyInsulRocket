@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Greeter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  [SerializeField] public RectTransform greetingCanvas;
+  [SerializeField] public RectTransform ingameCanvas;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  public void ShowGreetingCanvas()
+  {
+    greetingCanvas.gameObject.SetActive(true);
+    ingameCanvas.gameObject.SetActive(false);
+  }
+
+  public void StartInGameUI()
+  {
+    greetingCanvas.gameObject.SetActive(false);
+    ingameCanvas.gameObject.SetActive(true);
+  }
+  
+  
+  
+  
 }

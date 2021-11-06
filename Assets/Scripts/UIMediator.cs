@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIMediator : MonoBehaviour
 {
   [SerializeField] public GameController gameController;
+  [SerializeField] public Greeter greeterScript;
   [SerializeField] public Text murphyScore;
   [SerializeField] public Text cost;
   [SerializeField] public Text flips;
@@ -15,6 +16,8 @@ public class UIMediator : MonoBehaviour
   public void RocketStart() => gameController.CompileAndStartRocket();
 
   public void AbandonMission() => gameController.AbandonMission();
+
+  public void StartGame() => greeterScript.StartInGameUI();
 
   public void UpdateScoreBoard()
   {
