@@ -19,13 +19,22 @@ public class ScoreCalculator : MonoBehaviour
   public Transform flyingThing;
   public int flips;
   public int currentHeight;
+  public int maxScoreHeight;
   public int bestScore;
   public int lastScore;
+  public int flipsScore;
   private bool isFlying;
 
   public static ScoreCalculator instance;
 
   private Vector3 startPosition;
+  
+  // flip calc
+  private bool flipHad0;
+  private bool flipHad90;
+  private bool flipHad180;
+  private const float eps = 45;
+  private float startTime;
   
   public void Awake()
   {
@@ -49,6 +58,7 @@ public class ScoreCalculator : MonoBehaviour
   {
     startPosition = flyingThing.position;
     isFlying = true;
+    startTime = Time.time;
   }
   
   private void BuyBlockCost()
@@ -58,7 +68,7 @@ public class ScoreCalculator : MonoBehaviour
 
   private void DestroyBlockCost()
   {
-    totalBuildCost += 2;
+    totalBuildCost += 10;
   }
 
   private void OnRocketModelUpdate()
@@ -77,7 +87,13 @@ public class ScoreCalculator : MonoBehaviour
     totalBuildCost = 0;
     isFlying = false;
     flips = 0;
+    flipsScore = 0;
     currentHeight = 0;
+    maxScoreHeight = 0;
+
+    flipHad0 = false;
+    flipHad90 = false;
+    flipHad180 = false;
   }
   
   
@@ -88,19 +104,36 @@ public class ScoreCalculator : MonoBehaviour
       Vector3 p = flyingThing.position;
       currentHeight = (int)Math.Round(p.y - startPosition.y);
 
-      // TODO: account for flips and build cost
-      totalFlyScore = currentHeight;
+      if (currentHeight > maxScoreHeight)
+      {
+        maxScoreHeight = currentHeight;
+      }
 
-      bool doCancelFligh = checkFlyIsOver();
-      if (doCancelFligh)
+      bool doCancelFlight = CheckFlyIsOver();
+      if (doCancelFlight)
       {
         gameOver.Invoke();
       }
 
+      bool val = CheckFlip();
+      if (val)
+      {
+        flips += 1;
+        flipsScore += currentHeight;
+      }
+
+      int secsFromFlyStart = (int)Math.Round((Time.time - startTime), 0);
+
+
+      totalFlyScore = (int)Math.Round(maxScoreHeight / ((secsFromFlyStart + 1) * 5) + flipsScore*2 - totalBuildCost * secsFromFlyStart * 0.05f);  
+      
+
+      
+
     }
   }
 
-  private bool checkFlyIsOver()
+  private bool CheckFlyIsOver()
   {
     if (flyingThing.position.x > maxRight.position.x)
     {
@@ -116,6 +149,34 @@ public class ScoreCalculator : MonoBehaviour
     }
 
     return false;
+  }
+
+  private bool CheckFlip()
+  {
+    var a = Vector3.Angle(Vector3.up, flyingThing.up);
+ 
+    if (a + eps > 0 && a - eps < 0)
+    {
+      flipHad0 = true;
+    }
+    else if (a + eps > 90 && a - eps < 90)
+    {
+      flipHad90 = true;
+    }
+    else if (a + eps > 180 && a - eps < 180)
+    {
+      flipHad180 = true;
+    }
+
+    if (flipHad0 && flipHad90 && flipHad180)
+    {
+      flipHad0 = false;
+      flipHad90 = false;
+      flipHad180 = false;
+      return true;
+    }
+    return false;
+    
   }
   
   

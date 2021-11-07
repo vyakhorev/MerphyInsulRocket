@@ -8,7 +8,6 @@ public class ItemSpawner : MonoBehaviour
 {
   [SerializeField] public List<Transform> itemPrefabs;
   
-  // TODO Animate movement from spawnPoint to displayPoint
   [SerializeField] public Transform spawnPoint;
   [SerializeField] public Transform displayPoint;
 
