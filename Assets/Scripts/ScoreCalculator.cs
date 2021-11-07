@@ -125,7 +125,7 @@ public class ScoreCalculator : MonoBehaviour
       int secsFromFlyStart = (int)Math.Round((Time.time - startTime), 0);
 
 
-      totalFlyScore = (int)Math.Round(maxScoreHeight / ((secsFromFlyStart + 1) * 5) + flipsScore*2 - totalBuildCost * secsFromFlyStart * 0.05f);  
+      totalFlyScore = (int)Math.Round(maxScoreHeight / ((secsFromFlyStart + 1) * 5) + flipsScore*2 - totalBuildCost * secsFromFlyStart * 0.5f);  
       
 
       

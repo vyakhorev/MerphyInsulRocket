@@ -43,6 +43,7 @@ public class StartAbandonBtn : MonoBehaviour
   {
     txt.text = "START";
     img.color = Color.green;
+    isRunning = false;
   }
   
   
