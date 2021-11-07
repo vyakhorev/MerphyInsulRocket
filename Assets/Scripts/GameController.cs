@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
   public void Start()
   {
     SpawnRocket();
+    ScoreCalculator.instance.gameOver.AddListener(AbandonMission);
   }
 
   public void SpawnRocket()

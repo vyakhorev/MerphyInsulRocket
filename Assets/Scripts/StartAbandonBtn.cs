@@ -14,6 +14,7 @@ public class StartAbandonBtn : MonoBehaviour
   
   private void Awake()
   {
+    ScoreCalculator.instance.gameOver.AddListener(OnGameOver);
     txt = GetComponentInChildren<Text>();
     img = GetComponent<Image>();
     txt.text = "START";
@@ -38,5 +39,11 @@ public class StartAbandonBtn : MonoBehaviour
     
   }
 
-
+  public void OnGameOver()
+  {
+    txt.text = "START";
+    img.color = Color.green;
+  }
+  
+  
 }

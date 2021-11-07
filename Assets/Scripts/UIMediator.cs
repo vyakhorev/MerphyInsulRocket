@@ -12,6 +12,9 @@ public class UIMediator : MonoBehaviour
   [SerializeField] public Text cost;
   [SerializeField] public Text flips;
   [SerializeField] public Text height;
+  [SerializeField] public Text lastScore;
+  [SerializeField] public Text bestScore;
+  
 
   public void RocketStart() => gameController.CompileAndStartRocket();
 
@@ -25,6 +28,8 @@ public class UIMediator : MonoBehaviour
     cost.text = ScoreCalculator.instance.totalBuildCost.ToString();
     flips.text = ScoreCalculator.instance.flips.ToString();
     height.text = ScoreCalculator.instance.currentHeight.ToString();
+    lastScore.text = ScoreCalculator.instance.lastScore.ToString();
+    bestScore.text = ScoreCalculator.instance.bestScore.ToString();
   }
 
   public void Update()

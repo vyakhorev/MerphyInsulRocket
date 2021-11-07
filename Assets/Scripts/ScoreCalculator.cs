@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScoreCalculator : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ScoreCalculator : MonoBehaviour
   [SerializeField] public Transform maxLeft;
   [SerializeField] public Transform maxRight;
   
+  public UnityEvent gameOver;
   
   public int totalFlyScore;
   public int totalBuildCost;
@@ -17,6 +19,8 @@ public class ScoreCalculator : MonoBehaviour
   public Transform flyingThing;
   public int flips;
   public int currentHeight;
+  public int bestScore;
+  public int lastScore;
   private bool isFlying;
 
   public static ScoreCalculator instance;
@@ -25,7 +29,10 @@ public class ScoreCalculator : MonoBehaviour
   
   public void Awake()
   {
+    lastScore = 0;
+    bestScore = 0;
     if (instance == null) instance = this;
+    gameOver = new UnityEvent();
   }
 
   public void Start()
@@ -61,6 +68,11 @@ public class ScoreCalculator : MonoBehaviour
   
   private void ResetScore()
   {
+    lastScore = totalFlyScore;
+    if (lastScore > bestScore)
+    {
+      bestScore = lastScore;
+    }
     totalFlyScore = 0;
     totalBuildCost = 0;
     isFlying = false;
@@ -80,7 +92,10 @@ public class ScoreCalculator : MonoBehaviour
       totalFlyScore = currentHeight;
 
       bool doCancelFligh = checkFlyIsOver();
-      
+      if (doCancelFligh)
+      {
+        gameOver.Invoke();
+      }
 
     }
   }
